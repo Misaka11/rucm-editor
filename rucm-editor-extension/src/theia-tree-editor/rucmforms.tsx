@@ -39,13 +39,64 @@ class RucmForms extends React.Component<IProps>{
                 </React.Fragment>
                 )
         }else if(isetype(selectedData.eClass,"UseCase")){
+            let spe = selectedData.specification;
+            let v1 = spe.name;
+            let v2 = spe.briefDescription.sentences[0].content;
+            let v3 = spe.preCondition.sentences[0].content+spe.preCondition.sentences[1].content;
+            let v4 = spe.primaryActor.$ref;
+            let v5 = spe.secondaryActors[0].$ref;
+            let v6 = spe.basicFlow.steps[0].content;
+            let v7 = 'None';
+            let basicFlow = spe.basicFlow;
+            let speAltFlow = spe.alternativeFlows[0];
+            let bouAltFlow = spe.alternativeFlows[1];
+            let gloAltFlow = spe.alternativeFlows[2];
             return(
                 <React.Fragment>
-                    <h3> UseCase </h3>
-                    Name: <input type="text" name="Name" value={selectedData.name||''} onChange={actorNameInput} placeholder="write here" />
+                    <h3> Use Case Specification</h3>
+                    Use Case Name: <input type="text" name="Name" size={60}  value={v1||''} onChange={actorNameInput} placeholder="write here" />
                     <br/>
+                    Brief Description:<input type="text" name="Name" size={60} value={v2||''} onChange={actorNameInput} placeholder="write here" />
                     <br/>
-                    Description: <input type="text" name="Description" value={selectedData.description||''} onChange={actorDescriptionInput} placeholder="write here"/>
+                    Precondition:<input type="text" name="Name" size={60} value={v3||''} onChange={actorNameInput} placeholder="write here" />
+                    <br/>
+                    Primary Actor<input type="text" name="Name" size={60} value={v4||''} onChange={actorNameInput} placeholder="write here" />
+                    <br/>
+                    Secondary Actors:<input type="text" name="Name" size={60} value={v5||''} onChange={actorNameInput} placeholder="write here" />
+                    <br/>
+                    Dependency:<input type="text" name="Name" size={60} value={v6||''} onChange={actorNameInput} placeholder="write here" />
+                    <br/>
+                    Generlization:<input type="text" name="Name" size={60} value={v7||''} onChange={actorNameInput} placeholder="write here" />
+                    <br/><br/>
+                    Basic Flow:<br/>
+                        Steps <br/>
+                        {basicFlow.steps.map((item, index)=>{
+                            return <div>{index}<input value={item.content} size={60} /> </div>
+                        })}
+                        PostCondition: <input type="text" name="Name" size={60} value={basicFlow.postCondition.sentences[0].content || ''} onChange={actorNameInput} placeholder="write here" />
+                    <br/><br/>
+                    Specification Alternative Flow:{speAltFlow.name}<br/>
+                        {speAltFlow.rfsSentence.content} <br/>
+                        {speAltFlow.steps.map((item, index)=>{
+                            return <div>{index}<input value={item.content} size={60} /> </div>
+                        })}
+                        PostCondition: <input type="text" name="Name" size={60} value={speAltFlow.postCondition.sentences[0].content || ''} onChange={actorNameInput} placeholder="write here" />
+                    <br/><br/>
+                    Bounded Alternative Flow:{bouAltFlow.name}<br/>
+                        {bouAltFlow.rfsSentence.content} <br/>
+                        {bouAltFlow.steps.map((item, index)=>{
+                            return <div>{index}<input value={item.content} size={60} /> </div>
+                        })}
+                        PostCondition: <input type="text" name="Name" size={60} value={bouAltFlow.postCondition.sentences[0].content || ''} onChange={actorNameInput} placeholder="write here" />
+                    <br/><br/>
+                    Global Alternative Flow:{gloAltFlow.name}<br/>
+                        {gloAltFlow.conditionSentence.content} <br/>
+                        {gloAltFlow.steps.map((item, index)=>{
+                            return <div>{index}<input value={item.content} size={60} /> </div>
+                        })}
+                        PostCondition: <input type="text" name="Name" size={60} value={gloAltFlow.postCondition.sentences[0].content || ''} onChange={actorNameInput} placeholder="write here" />
+
+                    
                 </React.Fragment>
                 )
         }else if(isetype(selectedData.eClass,"UCModel")){
