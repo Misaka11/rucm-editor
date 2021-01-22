@@ -1,0 +1,41 @@
+{
+  "name": "rucm-server",
+  "license": "(EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)",
+  "keywords": [
+    "theia-extension"
+  ],
+  "version": "0.0.0",
+  "files": [
+    "build",
+    "lib",
+    "src"
+  ],
+  "author": {
+    "name": "EclipseSource"
+  },
+  "dependencies": {
+    "@theia/core": "latest",
+    "@theia/workspace": "latest",
+    "@theia/process": "latest",
+    "@eclipse-emfcloud/modelserver-theia": "next"
+  },
+  "devDependencies": {
+    "rimraf": "latest",
+    "typescript": "latest",
+    "tslint": "^5.5.0"
+  },
+  "scripts": {
+    "prepare": "yarn run clean && yarn run build",
+    "clean": "rimraf lib",
+    "lint": "tslint -c ../tslint.json --project ./tsconfig.json",
+    "build": "tsc",
+    "watch": "tsc -w",
+    "download-server": "cd ./scripts && ./download-server.sh"
+  },
+  "theiaExtensions": [
+    {
+      "backend": "lib/node/backend-module",
+      "frontend": "lib/browser/rucm-server-frontend-module"
+    }
+  ]
+}

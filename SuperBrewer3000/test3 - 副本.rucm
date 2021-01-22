@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ucmeta:UCModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ucmeta="http://simplexity.nuaa.edu.cn/ucmeta/1.3.0/" name="ATM System" description="I'm ATM System">
+  <modelElements xsi:type="ucmeta:Actor" name="Card Reader" description="I'm Card Reader"/>
+  <modelElements xsi:type="ucmeta:Actor" name="ATM Customer" description="I'm ATM Customer"/>
+  <modelElements xsi:type="ucmeta:UseCase" name="Withdraw fund" description="I'm Withdraw fund">
+    <include/>
+    <extensionPoint/>
+    <specification name="Withdraw fund" description="Specification for Withdraw Fund." primaryActor="//@modelElements.1" secondaryActors="//@modelElements.0">
+      <preCondition>
+        <sentences content="The system is idle."/>
+        <sentences content="The system is displaying a Welcome message."/>
+      </preCondition>
+      <briefDescription>
+        <sentences content="ATM customer withdraws a specific amount of funds from a valid bank account."/>
+      </briefDescription>
+      <basicFlow name="" description="">
+        <steps content="INCLUDE USE CASE Validate PIN.">
+          <natures xsi:type="ucmeta:IncludeUCNature" useCaseName="Validate PIN"/>
+        </steps>
+        <steps content="ATM customer selects Withdrawal through the system."/>
+        <steps content="ATM customer enters the withdrawal amount through the system."/>
+        <steps content="ATM customer selects the account number through the system."/>
+        <steps content="The system VALIDATES THAT the account number is valid.">
+          <natures xsi:type="ucmeta:ValidateThatNature" subject="The system" object="the account number is valid."/>
+        </steps>
+        <steps content="The system VALIDATES THAT ATM customer has enough funds in the account.">
+          <natures xsi:type="ucmeta:ValidateThatNature" subject="The system" object="ATM customer has enough funds in the account."/>
+        </steps>
+        <steps content="The system VALIDATES THAT the withdrawal amount does not exceed the daily limit of the account.">
+          <natures xsi:type="ucmeta:ValidateThatNature" subject="The system" object="the withdrawal amount does not exceed the daily limit of the account"/>
+        </steps>
+        <steps content="The system VALIDATES THAT the ATM has enough funds.">
+          <natures xsi:type="ucmeta:ValidateThatNature" subject="The system" object="the ATM has enough funds."/>
+        </steps>
+        <steps content="The system dispenses the cash amount."/>
+        <steps content="The system prints a receipt."/>
+        <steps content="The system ejects the ATM card."/>
+        <steps content="The system displays Welcome message."/>
+        <postCondition name="" description="">
+          <sentences name="" description="" content="ATM customer funds have been withdrawn."/>
+        </postCondition>
+      </basicFlow>
+      <alternativeFlows xsi:type="ucmeta:SpecificAlternative" name="alt1" description="">
+        <steps content="The system displays an apology message MEANWHILE the system ejects the ATM card.">
+          <natures xsi:type="ucmeta:MeanwhileNature" action1="The system displays an apology message" action2="the system ejects the ATM card"/>
+        </steps>
+        <steps content="The system shuts down."/>
+        <steps content="ABORT.">
+          <natures xsi:type="ucmeta:AbortNature"/>
+        </steps>
+        <postCondition name="" description="">
+          <sentences content="ATM customer funds have not been withdrawn."/>
+          <sentences content="The system is shut down."/>
+        </postCondition>
+        <rfsSentence content="RFS 8">
+          <natures xsi:type="ucmeta:RFSNature" flowName="">
+            <segments fromStep="8" toStep="8"/>
+          </natures>
+        </rfsSentence>
+      </alternativeFlows>
+      <alternativeFlows xsi:type="ucmeta:BoundedAlternative" name="alt2" description="">
+        <steps content="The system displays an apology message MEANWHILE the system ejects the ATM card.">
+          <natures xsi:type="ucmeta:MeanwhileNature" action1="The system displays an apology message" action2="the system ejects the ATM card"/>
+        </steps>
+        <steps content="ABORT.">
+          <natures xsi:type="ucmeta:AbortNature"/>
+        </steps>
+        <postCondition name="" description="">
+          <sentences content="ATM customer funds have not been withdrawn."/>
+          <sentences content="The system is idle."/>
+          <sentences content="The system is displaying a Welcome message."/>
+        </postCondition>
+        <rfsSentence content="RFS 5-7">
+          <natures xsi:type="ucmeta:RFSNature" flowName="">
+            <segments fromStep="5" toStep="7"/>
+          </natures>
+        </rfsSentence>
+      </alternativeFlows>
+      <alternativeFlows xsi:type="ucmeta:GlobalAlternative" name="alt3" description="">
+        <steps content="The system cancels the transaction."/>
+        <steps content="The system ejects the ATM card. "/>
+        <steps content="ABORT.">
+          <natures xsi:type="ucmeta:AbortNature"/>
+        </steps>
+        <postCondition name="" description="">
+          <sentences content="ATM customer PIN number has not been withdrawn."/>
+          <sentences content="The system is idle."/>
+          <sentences content="The system is displaying a Welcome message."/>
+        </postCondition>
+        <conditionSentence content="ATM customer enters Cancel."/>
+      </alternativeFlows>
+    </specification>
+  </modelElements>
+  <modelElements xsi:type="ucmeta:Relationship" actor="//@modelElements.1" useCase="//@modelElements.2"/>
+</ucmeta:UCModel>

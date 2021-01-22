@@ -1,0 +1,44 @@
+{
+  "name": "rucm-editor-extension",
+  "keywords": [
+    "theia-extension"
+  ],
+  "version": "0.0.0",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "dependencies": {
+    "@jsonforms/core": "2.4.0",
+    "@jsonforms/react": "2.4.0",
+    "@jsonforms/vanilla-renderers": "2.4.0",
+    "@eclipse-emfcloud/modelserver-theia": "next",
+    "@theia/core": "latest",
+    "@theia/filesystem": "latest",
+    "@theia/workspace": "latest",
+    "recompose": "^0.27.1",
+    "react": "^16.9.13",
+    "react-dom": "^16.9.13",
+    "react-redux": "^7.1.5",
+    "redux": "^4.0.4",
+    "uuid": "^3.3.2",
+    "theia-tree-editor":"latest"
+  },
+  "devDependencies": {
+    "rimraf": "latest",
+    "typescript": "latest",
+    "tslint": "^5.5.0"
+  },
+  "scripts": {
+    "prepare": "yarn run clean && yarn run build",
+    "clean": "rimraf lib",
+    "lint": "tslint -c ../tslint.json --project ./tsconfig.json",
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "theiaExtensions": [
+    {
+      "frontend": "lib/browser/rucm-editor-frontend-module"
+    }
+  ]
+}
